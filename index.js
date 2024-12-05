@@ -14,13 +14,14 @@ const app = express();
 //Middleware stack
 app.use(express.json());
 app.use(cors());
-const auth = require('./middleware/auth');
+
 
 
 //Routes stack
 app.use('/api/student', studentRoutes);
 app.use('/api/teacher', teacherRoutes);
 app.use('/api/admin', adminRoutes);
+
 
 
 module.exports = app;

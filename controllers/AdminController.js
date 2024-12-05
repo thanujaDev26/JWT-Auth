@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
+let refreshTokens=[];
+
 
 // Admin Signup
 exports.adminSignup = async (req, res) => {
@@ -44,9 +46,36 @@ exports.adminLogin = async (req, res) => {
         }
 
         const accessToken = jwt.sign({ id: admin._id, role: 'admin' }, process.env.TOKEN_KEY, { expiresIn: '1h' });
-        const refreshToken = jwt.sign({ id: admin._id, role: 'admin' }, process.env.RE_TOKEN_KEY, { expiresIn: '7d' });
-        res.status(200).json({ accessToken, refreshToken });
+        const refreshToken = jwt.sign({ id: admin._id, role: 'admin' }, process.env.RE_TOKEN_KEY, { expiresIn: '24h' });
+        res.status(200).json({
+            email,
+            accessToken,
+            refreshToken
+        });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
+
+exports.getToken = async (req,res)=>{
+
+    const refreshToken = req.body.refreshToken;
+    if(refreshToken == null) {
+        res.sendStatus(401);
+    }
+    if(!refreshTokens.includes(refreshToken)) {
+        res.sendStatus(403);
+    }
+
+    jwt.verify(refreshToken,process.env.RE_TOKEN_KEY,(err,user)=>{
+        if(err) res.sendStatus(403);
+        const accessToken=jwt.sign({name:user.name},process.env.TOKEN_KEY,{expiresIn: '1h'});
+        res.send({accessToken});
+    });
+}
+
+exports.getAdminSignOut = async (req,res)=>{
+    const refreshToken = req.body.refreshToken;
+    refreshTokens = refreshTokens.filter(t=> t !== refreshToken);
+    res.sendStatus(204);
+}
