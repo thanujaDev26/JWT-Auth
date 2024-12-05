@@ -4,8 +4,9 @@ const cors = require('cors');
 require('dotenv').config();
 
 
-let userRouter = require('./routes/userRouter')
-const studentRouter = require('./routes/studentRouter');
+const studentRoutes = require('./routes/StudentRouter');
+const teacherRoutes = require('./routes/TeacherRouter');
+const adminRoutes = require('./routes/AdminRouter');
 
 
 const app = express();
@@ -17,8 +18,9 @@ const auth = require('./middleware/auth');
 
 
 //Routes stack
-app.use('/api/user',userRouter);
-app.use('/api/student',auth,studentRouter);
+app.use('/api/student', studentRoutes);
+app.use('/api/teacher', teacherRoutes);
+app.use('/api/admin', adminRoutes);
 
 
 module.exports = app;

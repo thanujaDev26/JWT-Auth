@@ -10,6 +10,9 @@ module.exports = function (req, res, next) {
     jwt.verify(token, process.env.TOKEN_KEY, (err, user) => {
         if (err) return res.status(403).json({ message: 'Invalid or expired token' });
         req.user = user;
+        // if (user.role === 'student') {
+        //     req.studentID = user.studentID;
+        // }
         next();
     });
 };

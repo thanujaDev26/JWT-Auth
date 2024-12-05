@@ -1,17 +1,12 @@
+
 const mongoose = require('mongoose');
 
-const studentSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    studentID: { type: String, required: true, unique: true },
-    mobileNumber: { type: String, required: true },
-    papers: [
-        {
-            paperName: String,
-            marks: Number,
-            deadline: Date,
-            submitted: Boolean,
-        },
-    ],
+const paperSchema = new mongoose.Schema({
+    paperName: String,
+    marks: Number,
+    submitted: Boolean,
+    deadline: Date,
 });
 
-module.exports = mongoose.model('Student', studentSchema);
+const Paper = mongoose.model('Paper', paperSchema);
+module.exports = Paper

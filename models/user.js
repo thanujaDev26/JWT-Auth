@@ -10,8 +10,9 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: function () { return this.role === 'admin'; },
-        unique: true,
+        unique: this.role === 'admin',
         lowercase: true,
+        default : null
     },
     studentID: {
         type: String,
