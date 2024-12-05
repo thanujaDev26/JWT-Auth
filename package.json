@@ -1,0 +1,31 @@
+{
+  "name": "combined-maths-backend_1",
+  "version": "1.0.0",
+  "description": "Testing backend server using with jwt, twilio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thanujaDev26/TestJWT.git"
+  },
+  "author": "Thanuja",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thanujaDev26/TestJWT/issues"
+  },
+  "homepage": "https://github.com/thanujaDev26/TestJWT#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.8.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.7",
+    "twilio": "^5.3.6"
+  }
+}
