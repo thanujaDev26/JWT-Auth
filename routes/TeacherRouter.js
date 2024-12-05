@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 const teacherController = require('../controllers/TeacherController');
 
-// Teacher Signup
-router.post('/signup', teacherController.teacherSignup);
 
-// Teacher Login
-router.post('/login', teacherController.teacherLogin);
+router.route('/signup')
+    .post(teacherController.teacherSignup);
+
+
+router.route('/login')
+    .post(teacherController.teacherLogin);
 
 module.exports = router;

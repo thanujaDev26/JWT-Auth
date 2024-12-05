@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/AdminController');
 
-// Admin Signup
-router.post('/signup', adminController.adminSignup);
+router.route('/signup')
+    .post(adminController.adminSignup);
 
-// Admin Login
-router.post('/login', adminController.adminLogin);
+router.route('/login')
+    .post(adminController.adminLogin);
 
 module.exports = router;

@@ -44,8 +44,8 @@ exports.adminLogin = async (req, res) => {
         }
 
         const accessToken = jwt.sign({ id: admin._id, role: 'admin' }, process.env.TOKEN_KEY, { expiresIn: '1h' });
-
-        res.status(200).json({ accessToken });
+        const refreshToken = jwt.sign({ id: admin._id, role: 'admin' }, process.env.RE_TOKEN_KEY, { expiresIn: '7d' });
+        res.status(200).json({ accessToken, refreshToken });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
