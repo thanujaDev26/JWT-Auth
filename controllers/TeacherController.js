@@ -2,6 +2,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Teacher = require('../models/Teacher');
 
+require('dotenv').config();
+let salt = process.env.SALT;
 // Teacher Signup
 exports.teacherSignup = async (req, res) => {
     try {
@@ -18,7 +20,7 @@ exports.teacherSignup = async (req, res) => {
             phoneNumber
         });
 
-        teacher.password = await bcrypt.hash(password, 10);
+        teacher.password = await bcrypt.hash(password, salt);
         await teacher.save();
         res.status(201).json({ message: 'Teacher created successfully', data: teacher });
     } catch (error) {

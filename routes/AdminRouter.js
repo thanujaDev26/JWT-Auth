@@ -10,7 +10,10 @@ router.route('/signup')
 router.route('/login')
     .post(adminController.adminLogin);
 
-// router.route('/token')
-//     .post(adminController.getToken);
+router.route('/dashboard')
+    .get(authToken, adminController.getDashboard);
+
+router.route('/refresh')
+    .post(adminController.getToken)
 
 module.exports = router;

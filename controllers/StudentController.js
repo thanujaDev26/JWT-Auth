@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const Student = require('../models/Student');
 // const Paper  = require('../models/Paper');
 
+
 exports.studentSignup = async (req, res) => {
     try {
         const { studentID, name, ALyear, mobileNumber, email, address, district } = req.body;
