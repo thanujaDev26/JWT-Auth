@@ -11,8 +11,8 @@ This repository contains the backend code for the **Combined Mathematics Learnin
 - **Admin Panel**: Teachers can manage resources, upload video messages, and update content.
 
 ## Tech Stack
-- **Backend**: Node.js with Express.js
-- **Database**: MongoDB
+- **Backend**: Node.js with Express.js , Fiber (GoLang)
+- **Database**: MongoDB, MySQL
 - **Frontend**: React.js (in a separate repository)
 
 ## Getting Started
