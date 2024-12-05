@@ -34,13 +34,15 @@ exports.studentSignup = async (req, res) => {
 exports.studentLogin = async (req, res) => {
     try {
         const { studentID } = req.body;
-
         const student = await Student.findOne({ studentID });
         if (!student) {
             return res.status(404).json({ message: 'Student not found' });
         }
 
         const accessToken = jwt.sign({ id: student._id, role: 'student' }, process.env.TOKEN_KEY, { expiresIn: '1h' });
+        const refreshToken = jwt.sign({ id: student._id, role: 'student' }, process.env.RE_TOKEN_KEY, { expiresIn: '24h' });
+
+        refreshTokens.push(refreshToken);
 
         res.status(200).json({ accessToken });
     } catch (error) {

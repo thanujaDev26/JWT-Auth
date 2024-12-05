@@ -8,7 +8,7 @@ router.route('/signup')
     .post(teacherController.teacherSignup);
 
 router.route('/login')
-    .post(authToken,teacherController.teacherLogin);
+    .post(teacherController.teacherLogin);
 
 router.route('/dashboard')
     .get(authToken, teacherController.getDashboard);

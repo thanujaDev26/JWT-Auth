@@ -46,8 +46,11 @@ exports.teacherLogin = async (req, res) => {
         }
 
         const accessToken = jwt.sign({ id: teacher._id, role: 'teacher' }, process.env.TOKEN_KEY, { expiresIn: '1h' });
+        const refreshToken = jwt.sign({ id: teacher._id, role: 'teacher' }, process.env.RE_TOKEN_KEY, { expiresIn: '24h' });
 
-        res.status(200).json({ accessToken });
+        refreshTokens.push(refreshToken);
+
+        res.status(200).json({ teacher,accessToken,refreshToken });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
