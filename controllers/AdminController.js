@@ -43,7 +43,7 @@ exports.adminLogin = async (req, res) => {
         }
         const NIC = admin.NIC;
         const adminName = admin.name;
-        const accessToken = jwt.sign({ id: admin._id, role: 'admin' }, process.env.TOKEN_KEY, { expiresIn: '20s' });
+        const accessToken = jwt.sign({ id: admin._id, role: 'admin' }, process.env.TOKEN_KEY, { expiresIn: '1h' });
         const refreshToken = jwt.sign({ id: admin._id, role: 'admin' }, process.env.RE_TOKEN_KEY, { expiresIn: '24h' });
 
         refreshTokens.push(refreshToken);
@@ -88,7 +88,7 @@ exports.getToken = async (req,res)=>{
         if(err) {
             res.sendStatus(403);
         }
-        const accessToken=jwt.sign({name:user.name},process.env.TOKEN_KEY,{expiresIn: '20s'});
+        const accessToken=jwt.sign({name:user.name},process.env.TOKEN_KEY,{expiresIn: '1h'});
         res.json({
             accessToken: accessToken
         });

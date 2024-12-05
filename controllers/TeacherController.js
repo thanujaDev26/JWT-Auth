@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Teacher = require('../models/Teacher');
+let refreshTokens=[];
+
 
 require('dotenv').config();
 let salt = process.env.SALT;
@@ -50,3 +52,40 @@ exports.teacherLogin = async (req, res) => {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
+
+exports.getDashboard = async (req, res) => {
+    try {
+        res.status(200).json({
+            message: 'Dashboard successful',
+        })
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+}
+
+
+exports.getToken = async (req,res)=>{
+    const { refreshToken } = req.body;
+    if(refreshToken == null) {
+        return res.status(401).json({
+            message: 'Refresh token required'
+        });
+    }
+    if(!refreshTokens.includes(refreshToken)) {
+        return res.status(403).json({
+            message: 'Invalid refresh token'
+        });
+    }
+
+    jwt.verify(refreshToken,process.env.RE_TOKEN_KEY,(err,user)=>{
+        if(err) {
+            res.sendStatus(403);
+        }
+        const accessToken=jwt.sign({name:user.name},process.env.TOKEN_KEY,{expiresIn: '1h'});
+        res.json({
+            accessToken: accessToken
+        });
+    });
+}
+
